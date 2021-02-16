@@ -35,6 +35,7 @@ jobs:
     - name: Run tests
       run: mvn -B test --file src/acceptance-tests/pom.xml
     - name: Generate Cluecumber Test Report
+      if: ${{ always() }}
       run: mvn -B cluecumber-report:reporting --file src/acceptance-tests/pom.xml
     - name: Publish Test Report (Annotations)
       if: ${{ always() }}
