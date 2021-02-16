@@ -47,7 +47,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        path: "**/acceptance-tests-report.html"
+        path: "src/acceptance-tests/target/acceptance-tests-report.html"
 
 #  acceptance-tests-report:
 #    runs-on: ubuntu-latest
