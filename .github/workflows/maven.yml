@@ -50,4 +50,10 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: src/acceptance-tests/target/cluecumber-report
-        destination_dir: "${{ github.sha }}"
+        destination_dir: "${{ github.sha }}/${{ github.run_id }}"
+    - name: Post a PR comment (attach a link to Cluecumber Test Report)
+      if: ${{ always() }}
+      uses: github-actions-up-and-running/pr-comment@v1.0.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        message: "https://asmforce.github.io/aux/${{ github.sha }}/${{ github.run_id }}/index.html"
