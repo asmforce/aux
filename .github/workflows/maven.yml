@@ -36,18 +36,9 @@ jobs:
       run: mvn -B test --file src/acceptance-tests/pom.xml
     - name: Publish Test Report
       if: ${{ always() }}
-      uses: deblockt/cucumber-report-annotations-action@v1.7
+      uses: scacap/action-surefire-report@v1
       with:
-        name: "Acceptance tests"
-        path: "**/acceptance-tests-report.json"
-        access-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Create PR Comment
-      if: ${{ always() }}
-      uses: machine-learning-apps/pr-comment@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        path: "src/acceptance-tests/target/acceptance-tests-report.html"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
 #  acceptance-tests-report:
 #    runs-on: ubuntu-latest
