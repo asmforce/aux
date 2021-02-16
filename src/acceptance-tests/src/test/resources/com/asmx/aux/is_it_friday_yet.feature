@@ -7,7 +7,8 @@ Feature: Is it Friday yet?
     Then I should be told "<answer>"
 
   Examples:
-    | day | answer |
-    | Monday | No  |
-    | Sunday | No  |
-    | Friday | Yes |
+    | day     | answer |
+    | Monday  | No     |
+    | Sunday  | No     |
+    | Tuesday | NO     |
+    | Friday  | Yes    |
