@@ -42,5 +42,5 @@ jobs:
     - uses: deblockt/cucumber-report-annotations-action@v1.7
       with:
         name: "Acceptance tests"
-        path: "**/acceptance-tests-report.json"
+        path: "target/acceptance-tests-report.json"
         access-token: ${{ secrets.GITHUB_TOKEN }}
