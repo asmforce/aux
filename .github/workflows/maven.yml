@@ -41,6 +41,12 @@ jobs:
         name: "Acceptance tests"
         path: "**/acceptance-tests-report.json"
         access-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create PR Comment
+      uses: machine-learning-apps/pr-comment@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        path: "**/acceptance-tests-report.html"
 
 #  acceptance-tests-report:
 #    runs-on: ubuntu-latest
