@@ -10,5 +10,5 @@ Feature: Is it Friday yet?
     | day     | answer |
     | Monday  | No     |
     | Sunday  | No     |
-    | Tuesday | NO     |
+    | Tuesday | No     |
     | Friday  | Yes    |

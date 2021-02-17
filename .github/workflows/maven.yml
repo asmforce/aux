@@ -32,15 +32,30 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '11'
-    - name: Build with Maven
+    - name: Run tests
       run: mvn -B test --file src/acceptance-tests/pom.xml
-
-  acceptance-tests-report:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: deblockt/cucumber-report-annotations-action@v1.7
+    - name: Generate Cluecumber Test Report
+      if: ${{ always() }}
+      run: mvn -B cluecumber-report:reporting --file src/acceptance-tests/pom.xml
+    - name: Publish Test Report (Annotations)
+      if: ${{ always() }}
+      uses: deblockt/cucumber-report-annotations-action@v1.7
       with:
         name: "Acceptance tests"
-        path: "target/acceptance-tests-report.json"
+        path: "**/acceptance-tests-report.json"
         access-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish Test Report (Cluecumber | GitHub Pages)
+      if: ${{ always() }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: src/acceptance-tests/target/cluecumber-report
+        destination_dir: "${{ github.sha }}/${{ github.run_id }}"
+    - name: Post a PR comment (attach a link to Cluecumber Test Report)
+      if: ${{ always() }}
+      uses: mshick/add-pr-comment@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        message: "https://asmforce.github.io/aux/${{ github.sha }}/${{ github.run_id }}/index.html"
+        allow-repeats: true
